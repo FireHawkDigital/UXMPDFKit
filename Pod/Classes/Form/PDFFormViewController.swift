@@ -25,7 +25,7 @@ open class PDFFormViewController: NSObject {
         setupUI()
     }
     
-    func setupUI() {
+    public func setupUI() {
         DispatchQueue.global().async {
             guard let attributes = self.parser.attributes else {
                 return
@@ -52,7 +52,7 @@ open class PDFFormViewController: NSObject {
         }
     }
     
-    func enumerate(_ fieldDict: PDFDictionary) {
+    public func enumerate(_ fieldDict: PDFDictionary) {
         if fieldDict["Subtype"] != nil {
             createFormField(fieldDict)
             return
@@ -72,7 +72,7 @@ open class PDFFormViewController: NSObject {
         }
     }
     
-    func getPageNumber(_ field: PDFDictionary) -> Int? {
+    public func getPageNumber(_ field: PDFDictionary) -> Int? {
         guard let attributes = parser.attributes else {
             return nil
         }
@@ -99,7 +99,7 @@ open class PDFFormViewController: NSObject {
         return page
     }
     
-    func createFormField(_ dict: PDFDictionary) {
+    public func createFormField(_ dict: PDFDictionary) {
         if let page = getPageNumber(dict) {
             DispatchQueue.main.async {
                 if let formView = self.formPage(page) {
@@ -113,7 +113,7 @@ open class PDFFormViewController: NSObject {
         }
     }
     
-    func showForm(_ contentView: PDFPageContentView) {
+    public func showForm(_ contentView: PDFPageContentView) {
         lastPage = contentView
         let page = contentView.page
         if let formPage = self.formPage(page) {
@@ -121,7 +121,7 @@ open class PDFFormViewController: NSObject {
         }
     }
     
-    func formPage(_ page: Int) -> PDFFormPage? {
+    public func formPage(_ page: Int) -> PDFFormPage? {
         if page > (formPages.count + 1) {
             return nil
         }
